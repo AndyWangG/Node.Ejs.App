@@ -1,0 +1,21 @@
+//连接数据库
+var mysql = require('mysql');
+var pool = mysql.createPool({
+    host: '192.168.0.108',
+    user: 'root',
+    password: '111111',
+    database: 'wte',
+    connectionLimit: 10
+});
+
+
+function getMenuList(callback) {
+    //查询
+    pool.query('SELECT * FROM `t_menu`;', function (err, rows, fields) {
+        if (err) throw err;
+        console.log('查询结果为: ', rows);
+        callback(rows);
+    });
+}
+
+module.exports.getMenuList = getMenuList;
